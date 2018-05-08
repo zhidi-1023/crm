@@ -73,7 +73,7 @@ public class BusinessController {
 	@GetMapping("update/{businessid}")
 	public ModelAndView updateUI(@PathVariable("businessid")String businessid){
 		return new ModelAndView("business/form","business",businessService.findfourById(businessid)).addObject("method", "update").addObject("userList",userservice.All()).
-																			addObject("customerList",customerservice.findAll()).
+																			addObject("customerList",customerservice.All()).
 																			addObject("businessstatusList",businessstatusservice.All()).
 																			addObject("contactssList",contactsservice.All());
 															};
@@ -90,7 +90,7 @@ public class BusinessController {
 	@GetMapping("save")
 	public ModelAndView saveUI(){
 		return new ModelAndView("business/businesssava").addObject("userList",userservice.All()).
-																addObject("customerList",customerservice.findAll()).
+																addObject("customerList",customerservice.All()).
 																addObject("businessstatusList",businessstatusservice.All()).
 																addObject("contactssList",contactsservice.All());
 	}

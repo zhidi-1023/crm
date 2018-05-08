@@ -1,72 +1,60 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project 
+	xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.zhidisoft.crm</groupId>
 	<artifactId>crm</artifactId>
 	<version>1.0.0</version>
 	<packaging>war</packaging>
-
 	<!-- 配置jdk8 -->
 	<properties>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.compiler.source>1.8</maven.compiler.source>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 	</properties>
-
 	<dependencies>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
 			<version>4.3.16.RELEASE</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>4.3.16.RELEASE</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
 			<version>1.3.2</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
 			<version>3.4.6</version>
 		</dependency>
-
-		<!-- mvn install:install-file -Dfile=D:\oracle-jdbc.jar -DgroupId=oracle 
-			-DartifactId=oracle-jdbc -Dversion=1.0.0 -Dpackaging=jar -->
-		<!-- <dependency>
-			<groupId>oracle</groupId>
-			<artifactId>oracle-jdbc</artifactId>
-			<version>1.0.0</version>
-		</dependency> -->
+		<!-- mvn install:install-file -Dfile=D:\oracle-jdbc.jar -DgroupId=oracle -DartifactId=oracle-jdbc -Dversion=1.0.0 -Dpackaging=jar -->
+		<!-- <dependency><groupId>oracle</groupId><artifactId>oracle-jdbc</artifactId><version>1.0.0</version></dependency> -->
 		<!-- mariadb jar包 -->
 		<dependency>
 			<groupId>org.mariadb.jdbc</groupId>
 			<artifactId>mariadb-java-client</artifactId>
 			<version>2.2.3</version>
 		</dependency>
-
-
 		<!-- 数据库连接池 druid 阿里巴巴 -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
 			<version>1.1.9</version>
 		</dependency>
-
 		<!-- springmvc 过滤器/拦截器有什么区别 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>4.3.16.RELEASE</version>
 		</dependency>
-
 		<!-- 测试,工具类 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -74,7 +62,6 @@
 			<version>4.3.16.RELEASE</version>
 			<scope>test</scope>
 		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/junit/junit -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -82,14 +69,12 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-
 		<!-- 日志 -->
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
 		</dependency>
-
 		<!-- servlet api -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -97,81 +82,68 @@
 			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
-
 		<!-- 安全加密 -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
 			<version>4.2.5.RELEASE</version>
 		</dependency>
-
 		<!-- apache 公共包 -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.7</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.mybatis.generator</groupId>
 			<artifactId>mybatis-generator-core</artifactId>
 			<version>1.3.6</version>
 		</dependency>
-
 		<!-- 后台验证框架 -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
 			<version>6.0.9.Final</version>
 		</dependency>
-
 		<!-- json -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 			<version>1.2.47</version>
 		</dependency>
-		
 		<!-- 阿里云oss文件上传 -->
 		<dependency>
-		    <groupId>com.aliyun.oss</groupId>
-		    <artifactId>aliyun-sdk-oss</artifactId>
-		    <version>2.8.2</version>
-       </dependency>
-
+			<groupId>com.aliyun.oss</groupId>
+			<artifactId>aliyun-sdk-oss</artifactId>
+			<version>2.8.2</version>
+		</dependency>
 		<!-- springmvc 依赖 jar 上传 -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.3.3</version>
-		</dependency> 
-		
+		</dependency>
 		<dependency>
-		    <groupId>javax.servlet</groupId>
-		    <artifactId>jstl</artifactId>
-		    <version>1.2</version>
-		</dependency> 
-		
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
 		<!-- 定时器jar包 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
 			<version>4.3.16.RELEASE</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.quartz-scheduler</groupId>
 			<artifactId>quartz</artifactId>
 			<version>2.3.0</version>
 		</dependency>
-		
 		<!-- 短信 -->
 		<dependency>
 			<groupId>com.yunpian.sdk</groupId>
 			<artifactId>yunpian-java-sdk</artifactId>
 			<version>1.2.7</version>
 		</dependency>
-       
-	</dependencies> 
-
+	</dependencies>
 </project>
