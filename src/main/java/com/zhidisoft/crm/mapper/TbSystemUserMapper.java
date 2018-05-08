@@ -166,7 +166,7 @@ public interface TbSystemUserMapper {
 			"where ID = #{id,jdbcType=VARCHAR}" })
 	int updateByPrimaryKey(TbSystemUser record);
 
-	@Select({"<script>"
+	/*@Select({"<script>"
 			+ "SELECT * "
 			,"FROM (SELECT ROWNUM AS rowno,r.* "
 			, " FROM("
@@ -181,6 +181,17 @@ public interface TbSystemUserMapper {
 			," ) table_alias"
 			, " WHERE table_alias.rowno > ${beginIndex}",
 			"</script>"})	
+    List<TbSystemUser> selectByPage(@Param("beginIndex")Integer beginIndex,@Param("endIndex")Integer endIndex,@Param("searchText")String searchText);*/
+	@Select({"<script>"
+			, "select * from tb_system_user "
+			," <where>"
+			,"   <if test='searchText !=null'>"
+					+ " username like '%${searchText}%'"
+			,"   </if>"
+			," </where>"
+			
+			," limit #{beginIndex},#{endIndex}"
+			,"</script>"})	
     List<TbSystemUser> selectByPage(@Param("beginIndex")Integer beginIndex,@Param("endIndex")Integer endIndex,@Param("searchText")String searchText);
     @Select({
     	"select u.username,r.rolename,u.role_id from Tb_System_User u",
