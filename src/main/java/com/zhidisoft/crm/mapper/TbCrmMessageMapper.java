@@ -58,7 +58,8 @@ public interface TbCrmMessageMapper {
 	 * @mbg.generated  Tue Apr 24 11:15:01 CST 2018
 	 */
 	@InsertProvider(type = TbCrmMessageSqlProvider.class, method = "insertSelective")
-	@SelectKey(statement = "select sys_guid() from dual", keyProperty = "messageid", before = true, resultType = String.class)
+	//@SelectKey(statement = "select sys_guid() from dual", keyProperty = "messageid", before = true, resultType = String.class)
+	@SelectKey(statement = "select REPLACE(UUID(),'-','')",keyProperty = "messageid", before = true, resultType = String.class)
 	int insertSelective(TbCrmMessage record);
 
 	/**
@@ -178,20 +179,14 @@ public interface TbCrmMessageMapper {
 			"where MESSAGEID = #{messageid,jdbcType=VARCHAR}" })
 	int updateByPrimaryKey(TbCrmMessage record);
 	
-	 @Select({ "<script>" 
-				+ "SELECT * "
-				, "FROM (SELECT ROWNUM AS rowno,r.* "
-				, " FROM("
-				,"select m.*,u.username from TB_CRM_MESSAGE m left join TB_SYSTEM_USER u on m.fromuserid = u.id"
+	 @Select({
+				"select m.*,u.username from TB_CRM_MESSAGE m left join TB_SYSTEM_USER u on m.fromuserid = u.id"
 				, " <where>"
 				,"   <if test='searchText !=null and searchText!=\"\" '>"
 				+ " username like '%${searchText}%'"
-				, "   </if>", " </where>"
-				, " ) r"
-				," <![CDATA[ where ROWNUM <= #{endIndex} ]]>"
-				, " ) table_alias"
-				, " WHERE table_alias.rowno > ${beginIndex}"
-				,"</script>" })
+				, "   </if>"
+				, " limit #{beginIndex},#{endIndex}"
+				})
 	 List<MessListVO> findPage(@Param("beginIndex") Integer beginIndex, @Param("endIndex") Integer endIndex,
 				@Param("searchText") String searchText);
 	 
@@ -208,7 +203,7 @@ public interface TbCrmMessageMapper {
 			, " <where>"
 			,"   <if test='searchText !=null and searchText!=\"\" '>"
 			+ " username like '%${searchText}%'"
-			, "   </if>", " </where>"
+			, "   </if>"
 			,"</script>"
 	 })
 	 long findcont(@Param("searchText") String searchText);
