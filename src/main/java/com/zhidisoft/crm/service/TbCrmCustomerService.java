@@ -12,6 +12,7 @@ import com.zhidisoft.crm.entity.TbCrmCustomerExample;
 import com.zhidisoft.crm.entity.TbCrmCustomerExample.Criteria;
 import com.zhidisoft.crm.mapper.TbCrmCustomerMapper;
 import com.zhidisoft.crm.vo.CustomerUserNameVO;
+import com.zhidisoft.crm.vo.PageVO;
 
 
 @Service
@@ -20,7 +21,7 @@ public class TbCrmCustomerService {
 	@Autowired
 	TbCrmCustomerMapper  customerMapper;
 	/**
-	 * æŸ¥è¯¢æ‰?æœ?
+	 * æŸ¥è¯¢ï¿½?ï¿½?
 	 * @return
 	 */
 	public List<TbCrmCustomer> findAll(){
@@ -31,7 +32,7 @@ public class TbCrmCustomerService {
 	/**
 	 * 
 	 * @param pageNum
-	 *            ä»?1å¼?å§?
+	 *            ï¿½?1ï¿½?ï¿½?
 	 * @param pageSize
 	 * @return
 	 */
@@ -40,21 +41,9 @@ public class TbCrmCustomerService {
 	}
 
 
+
 	/**
-	 * æ€»æ¡æ•?
-	 * 
-	 * @return
-	 */
-	public Long count(String searchText) {
-		TbCrmCustomerExample example = new TbCrmCustomerExample();
-		Criteria  c = example.createCriteria();
-		if (StringUtils.isNotBlank(searchText)) {
-			c.andNameLike("%" + searchText + "%");
-		}
-		return customerMapper.countByExample(example);
-	}
-	/**
-	 * é€šè¿‡IDæŸ¥è¯¢ä¸?æ¡æ•°æ?
+	 * é€šè¿‡IDæŸ¥è¯¢ï¿½?æ¡æ•°ï¿½?
 	 * @param customerid
 	 * @return
 	 */
@@ -71,7 +60,7 @@ public class TbCrmCustomerService {
 		return customerMapper.updateByPrimaryKey(record);
 	}
 	/**
-	 * é€šè¿‡IDåŠ¨æ?ä¿®æ”?
+	 * é€šè¿‡IDåŠ¨ï¿½?ï¿½ä¿®ï¿½?
 	 * @param record
 	 * @return
 	 */
@@ -80,7 +69,7 @@ public class TbCrmCustomerService {
 		return customerMapper.updateByPrimaryKeySelective(record);
 	}
 	/**
-	 * å¾?customerå­˜ä¸€æ¡æ•°æ?
+	 * ï¿½?customerå­˜ä¸€æ¡æ•°ï¿½?
 	 * @param record
 	 * @return
 	 */
@@ -90,9 +79,9 @@ public class TbCrmCustomerService {
 
 
 
-	//¿Í»§¹¦ÄÜÇøÓò
+	//ï¿½Í»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	/**
-	 * ×Ô¼º·â×°µÄpage
+	 * ï¿½Ô¼ï¿½ï¿½ï¿½×°ï¿½ï¿½page
 	 * 
 	 * @param pageNum
 	 * @param pageSize
@@ -109,7 +98,7 @@ public class TbCrmCustomerService {
 	}
 	
 	/**
-	 * ×ÜÌõÊı
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * 
 	 * @param searchText
 	 * @return
@@ -124,7 +113,7 @@ public class TbCrmCustomerService {
 	}
 
 	/**
-	 * Ìí¼ÓÊı¾İ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param crmCustomer
 	 */
 	public void save(TbCrmCustomer crmCustomer) {
@@ -132,7 +121,7 @@ public class TbCrmCustomerService {
 	}
 
 	/**
-	 * ÅúÁ¿É¾³ı
+	 * ï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½
 	 * @param ids
 	 */
 	public void deleteByIds(String[] ids) {
@@ -143,7 +132,7 @@ public class TbCrmCustomerService {
 	}
 
 	/**
-	 * ¸ù¾İID²éÑ¯Ò»ÌõÊı¾İ
+	 * ï¿½ï¿½ï¿½ï¿½IDï¿½ï¿½Ñ¯Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param customerId
 	 * @return
 	 */
@@ -152,7 +141,7 @@ public class TbCrmCustomerService {
 	}
 
 	/**
-	 * ĞŞ¸ÄÊı¾İ
+	 * ï¿½Ş¸ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param customer
 	 */
 	public void update(TbCrmCustomer customer) {
