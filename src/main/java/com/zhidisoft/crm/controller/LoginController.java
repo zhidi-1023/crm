@@ -60,6 +60,7 @@ public class LoginController {
 		} 
 		session.setAttribute("username", dbUser.getUsername());
 		session.setAttribute("functions", functions);
+		session.setAttribute("dbUser",dbUser);
 		return new ModelAndView("index");
 	}
 
