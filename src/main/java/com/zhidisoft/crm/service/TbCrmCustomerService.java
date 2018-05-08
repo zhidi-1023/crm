@@ -87,4 +87,75 @@ public class TbCrmCustomerService {
 	public int CustomerSave(TbCrmCustomer record){
 		return customerMapper.insert(record);
 	}
+
+
+
+	//客户功能区域
+	/**
+	 * 自己封装的page
+	 * 
+	 * @param pageNum
+	 * @param pageSize
+	 * @param searchText
+	 * @return
+	 */
+	public PageVO<TbCrmCustomer> findPage(Integer pageNum, Integer pageSize, String searchText) {
+		PageVO<TbCrmCustomer> page = new PageVO<>();
+		page.setList(customerMapper.findPage((pageNum - 1) * pageSize, pageNum * pageSize, searchText));
+		page.setPageNum(pageNum);
+		page.setPageSize(pageSize);
+		page.setTotalCount(count(searchText));
+		return page;
+	}
+	
+	/**
+	 * 总条数
+	 * 
+	 * @param searchText
+	 * @return
+	 */
+	public Long count(String searchText) {
+		TbCrmCustomerExample example = new TbCrmCustomerExample();
+		Criteria c = example.createCriteria();
+		if (StringUtils.isNotBlank(searchText)) {
+			c.andNameLike("%" + searchText + "%");
+		}
+		return customerMapper.countByExample(example);
+	}
+
+	/**
+	 * 添加数据
+	 * @param crmCustomer
+	 */
+	public void save(TbCrmCustomer crmCustomer) {
+		customerMapper.insertSelective(crmCustomer);
+	}
+
+	/**
+	 * 批量删除
+	 * @param ids
+	 */
+	public void deleteByIds(String[] ids) {
+		for(String id : ids){
+			customerMapper.deleteByPrimaryKey(id);
+		}
+		
+	}
+
+	/**
+	 * 根据ID查询一条数据
+	 * @param customerId
+	 * @return
+	 */
+	public TbCrmCustomer findById(String customerId) {
+		return customerMapper.selectByPrimaryKey(customerId);
+	}
+
+	/**
+	 * 修改数据
+	 * @param customer
+	 */
+	public void update(TbCrmCustomer customer) {
+		customerMapper.updateByPrimaryKeySelective(customer);
+	}
 }

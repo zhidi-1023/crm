@@ -129,25 +129,89 @@ public class CustomerController {
 		}
 		return new AjaxVO().setErrorCode("400000");
 	}
+	//客户功能区域
 	/**
-	 * 跳转添加客户页面
+	 * 分页展示数据
+	 * 
+	 * @param pageNum
+	 * @param pageSize
+	 * @param searchText
+	 * @return
+	 */
+	@GetMapping("listPage")
+	public ModelAndView listPage(@RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum,
+			@RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, String searchText) {
+		ModelAndView mav = new ModelAndView("customer/listPage", "customerList",
+				CustomerService.findPage(pageNum, pageSize, searchText));
+		mav.addObject("searchText", searchText);
+		return mav;
+	}
+
+	/**
+	 * 跳转保存页面
+	 * 
+	 * @param tbCrmCustomer
 	 * @return
 	 */
 	@GetMapping("save")
-	public ModelAndView clientSaveUI(){
-		return new ModelAndView("customer/save");
+	public ModelAndView toSavePage(TbCrmCustomer tbCrmCustomer) {
+		return new ModelAndView("customer/form", "method", "save");
 	}
+
 	/**
-	 * 添加客户功能
-	 * @param customer
+	 * 添加数据
+	 * 
+	 * @param customerVO
+	 * @param result
 	 * @return
 	 */
 	@PostMapping("save")
-	@ResponseBody
-	public AjaxVO clientSave(TbCrmCustomer customer){
-		if(customerService.CustomerSave(customer)<0){
-			return new AjaxVO().setErrorCode("400001").setErrorMsg("添加失败");
+	public ModelAndView save(@Valid CustomerFromVO customerVO, BindingResult result) {
+		if (result.hasErrors()) {
+			return new ModelAndView("customer/form", "errorMsg", result.getAllErrors().get(0).getDefaultMessage());
 		}
-		return new AjaxVO().setErrorCode("400000");
+		TbCrmCustomer crmCustomer = customerVO.toCustomer();
+		CustomerService.save(crmCustomer);
+		return new ModelAndView("redirect:/customer/listPage");
 	}
+
+	/**
+	 * 批量删除
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	@DeleteMapping("delete")
+	@ResponseBody
+	public String deleteByIds(@RequestBody String ids) {
+		String[] idsArr = ids.split(",");
+		CustomerService.deleteByIds(idsArr);
+		return "success";
+	}
+
+	/**
+	 * 修改
+	 * @param customerId
+	 * @param NMAE
+	 * @return
+	 */
+	@PostMapping("updates/{id}")
+	public ModelAndView update(@PathVariable("id")String CUSTOMERID,String NAME){
+		TbCrmCustomer customer = new TbCrmCustomer();
+		customer.setCustomerid(CUSTOMERID);
+		customer.setName(NAME);
+		CustomerService.update(customer);
+		return new ModelAndView("redirect:/customer/listPage");
+	}
+	
+	/**
+	 * 查看数据
+	 * @param customerId
+	 * @return
+	 */
+	@GetMapping("lists/{id}")
+	public ModelAndView ToPagelist(@PathVariable("id") String customerId) {
+		return new ModelAndView("customer/lists", "customerlist", CustomerService.findById(customerId));
+	}
+
 }
