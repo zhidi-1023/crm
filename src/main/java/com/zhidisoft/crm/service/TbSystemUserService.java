@@ -84,5 +84,10 @@ public class TbSystemUserService {
 		List<TbSystemUser> users = userMapper.selectByExample(example);
 		return users != null && users.size() > 0 ? users.get(0) : null;
 	}
+	public List<TbSystemUser> All(){
+		
+		return userMapper.selectByExample(new TbSystemUserExample());
+		
+	}
 
 }

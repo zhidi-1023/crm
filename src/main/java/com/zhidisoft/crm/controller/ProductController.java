@@ -25,7 +25,7 @@ import com.aliyun.oss.OSSException;
 import com.zhidisoft.crm.entity.TbCrmProduct;
 import com.zhidisoft.crm.service.TbCrmProductCategoryService;
 import com.zhidisoft.crm.service.TbCrmProductService;
-import com.zhidisoft.crm.service.TbCrmSystemUserService;
+import com.zhidisoft.crm.service.TbSystemUserService;
 import com.zhidisoft.crm.vo.ProductFormVO;
 
 @Controller
@@ -42,7 +42,7 @@ public class ProductController {
 	@Autowired
 	TbCrmProductCategoryService   categoryService;
 	@Autowired
-	TbCrmSystemUserService    userService;
+	TbSystemUserService    userService;
 	
 	@Autowired
 	OSSClient  ossclient;

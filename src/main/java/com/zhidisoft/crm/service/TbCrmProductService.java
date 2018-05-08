@@ -51,7 +51,7 @@ public class TbCrmProductService {
 		Date now = null, first = null;
 		if ("week".equals(where1)) {
 			now = new Date();
-			first = DateUtil.dayOfWeek();
+			first = DateUtil.firstDayOfWeek();
 
 		}
 		return productMapper.findPage((pageNum - 1) * pageSize, pageNum * pageSize, searchText, where1, first, now);
