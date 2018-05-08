@@ -1,5 +1,5 @@
 <%@page import="com.zhidisoft.crm.entity.TbSystemUser"%>
-<%@page import="com.zhidisoft.crm.vo.TbCrmLeadsVO"%>
+<%@page import="com.zhidisoft.crm.vo.TbCrmLeadsPoolVO"%>
 <%@page import="com.zhidisoft.crm.entity.TbCrmLeadsPool"%>
 <%@page import="java.util.List"%>
 <%@page import="com.zhidisoft.crm.vo.PageVO"%>
@@ -173,9 +173,9 @@
               </thead>
               <tbody>
              <%
-             PageVO<TbCrmLeadsVO> listLeads = (PageVO<TbCrmLeadsVO>)request.getAttribute("leadsPage");
+             PageVO<TbCrmLeadsPoolVO> listLeads = (PageVO<TbCrmLeadsPoolVO>)request.getAttribute("leadsPage");
               	Integer index = 0;
-                for(TbCrmLeadsVO item : listLeads.getList()) {
+                for(TbCrmLeadsPoolVO item : listLeads.getList()) {
                 	index ++;
               %>
               <tr>
