@@ -56,7 +56,7 @@ public class TbCrmBusinessService {
 		if("week".equals(where1)){
 			 now=new Date();
 			//TODO jdk8日期处理
-			 first= DateUtil.dayOfWeek();
+			 first= DateUtil.firstDayOfWeek();
 		}
 		
 		PageVO<TbCrmBusinessVO> page = new PageVO<>();

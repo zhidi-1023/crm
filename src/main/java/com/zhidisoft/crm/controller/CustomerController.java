@@ -3,13 +3,19 @@ package com.zhidisoft.crm.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,6 +24,7 @@ import com.zhidisoft.crm.entity.TbSystemUser;
 import com.zhidisoft.crm.service.TbCrmCustomerService;
 import com.zhidisoft.crm.service.TbSystemUserService;
 import com.zhidisoft.crm.vo.AjaxVO;
+import com.zhidisoft.crm.vo.CustomerFromVO;
 import com.zhidisoft.crm.vo.CustomerUserNameVO;
 import com.zhidisoft.crm.vo.LayUITableVO;
 
@@ -142,7 +149,7 @@ public class CustomerController {
 	public ModelAndView listPage(@RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum,
 			@RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize, String searchText) {
 		ModelAndView mav = new ModelAndView("customer/listPage", "customerList",
-				CustomerService.findPage(pageNum, pageSize, searchText));
+				customerService.findPage(pageNum, pageSize, searchText));
 		mav.addObject("searchText", searchText);
 		return mav;
 	}
@@ -171,7 +178,7 @@ public class CustomerController {
 			return new ModelAndView("customer/form", "errorMsg", result.getAllErrors().get(0).getDefaultMessage());
 		}
 		TbCrmCustomer crmCustomer = customerVO.toCustomer();
-		CustomerService.save(crmCustomer);
+		customerService.save(crmCustomer);
 		return new ModelAndView("redirect:/customer/listPage");
 	}
 
@@ -185,7 +192,7 @@ public class CustomerController {
 	@ResponseBody
 	public String deleteByIds(@RequestBody String ids) {
 		String[] idsArr = ids.split(",");
-		CustomerService.deleteByIds(idsArr);
+		customerService.deleteByIds(idsArr);
 		return "success";
 	}
 
@@ -200,7 +207,7 @@ public class CustomerController {
 		TbCrmCustomer customer = new TbCrmCustomer();
 		customer.setCustomerid(CUSTOMERID);
 		customer.setName(NAME);
-		CustomerService.update(customer);
+		customerService.update(customer);
 		return new ModelAndView("redirect:/customer/listPage");
 	}
 	
@@ -211,7 +218,7 @@ public class CustomerController {
 	 */
 	@GetMapping("lists/{id}")
 	public ModelAndView ToPagelist(@PathVariable("id") String customerId) {
-		return new ModelAndView("customer/lists", "customerlist", CustomerService.findById(customerId));
+		return new ModelAndView("customer/lists", "customerlist", customerService.findById(customerId));
 	}
 
 }

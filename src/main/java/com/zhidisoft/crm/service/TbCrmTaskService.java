@@ -60,7 +60,7 @@ public class TbCrmTaskService {
 			Date now = null, first = null;
 			if ("week".equals(date1)) {
 				now = new Date();
-				first = DateUtil.dayOfWeek();
+				first = DateUtil.firstDayOfWeek();
 
 			}
 			

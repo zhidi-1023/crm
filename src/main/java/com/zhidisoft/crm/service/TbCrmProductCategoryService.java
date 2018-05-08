@@ -51,7 +51,7 @@ public class TbCrmProductCategoryService {
 		Date now = null, first = null;
 		if ("week".equals(where1)) {
 			now = new Date();
-			first = DateUtil.dayOfWeek();
+			first = DateUtil.firstDayOfWeek();
 
 		}
 		return categoryMapper.findPage((pageNum - 1) * pageSize, pageNum * pageSize, searchText, where1, first, now);
