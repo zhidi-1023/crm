@@ -39,7 +39,7 @@ public class ContractController {
 	public ModelAndView saveUI() {
 		 
 		// 添加合同中的商机来源
-		List<TbCrmBusiness> business = businessService.findAll();
+		List<TbCrmBusiness> business = businessService.All();
 		ModelAndView model = new ModelAndView();
 		 
 		model.addObject("business", business);
@@ -84,14 +84,14 @@ public class ContractController {
 	public ModelAndView updateUI(@PathVariable("id") String contractid) {
 		ModelAndView model = new ModelAndView();
 		// 添加合同中的商机来源
-		model.addObject("business", businessService.findAll());
+		model.addObject("business", businessService.All());
 		// 确定是修改页面
 		model.addObject("method", "update");
 		// 查询一条数据
 		model.addObject("contract", contractService.findContractById(contractid));
 		model.addObject("contractnumber", contractService.findContractById(contractid).getContractnumber());
 		// 查询所有的用户名
-		model.addObject("userList", userService.findAll());
+	/*	model.addObject("userList", userService.findAll());*/
 		// 修改跳转的页面
 		model.setViewName("contract/update");
 		return model;

@@ -76,7 +76,8 @@ public interface TbCrmContractMapper {
         "#{deleteuserid,jdbcType=VARCHAR}, #{deletetime,jdbcType=TIMESTAMP}, ",
         "#{contractcontent,jdbcType=BLOB})"
     })
-    @SelectKey(statement="select sys_guid() from dual", keyProperty="contractid", before=true, resultType=String.class)
+ /*   @SelectKey(statement="select sys_guid() from dual", keyProperty="contractid", before=true, resultType=String.class)*/
+    @SelectKey(statement="select REPLACE(UUID(),'-','')", keyProperty="contractid", before=true, resultType=String.class)
     int insert(TbCrmContract record);
 
     /**
@@ -86,7 +87,8 @@ public interface TbCrmContractMapper {
      * @mbg.generated Wed Apr 25 10:14:37 CST 2018
      */
     @InsertProvider(type=TbCrmContractSqlProvider.class, method="insertSelective")
-    @SelectKey(statement="select sys_guid() from dual", keyProperty="contractid", before=true, resultType=String.class)
+ /*   @SelectKey(statement="select sys_guid() from dual", keyProperty="contractid", before=true, resultType=String.class)*/
+    @SelectKey(statement="select REPLACE(UUID(),'-','')", keyProperty="contractid", before=true, resultType=String.class)
     int insertSelective(TbCrmContract record);
 
     /**
@@ -276,7 +278,7 @@ public interface TbCrmContractMapper {
      * @param searchText
      * @return
      */
-    @Select({"<script>"
+   /* @Select({"<script>"
             + "SELECT * "
             ,"FROM (SELECT ROWNUM AS rowno,r.* "
             , " FROM("
@@ -294,6 +296,19 @@ public interface TbCrmContractMapper {
             ," ) table_alias"
             , " WHERE table_alias.rowno > ${beginIndex}",
             "</script>"})
+    List<ContractVO> findPage(@Param("beginIndex")Integer beginIndex,@Param("endIndex")Integer endIndex,@Param("searchText") String searchText);*/
+    @Select({"<script>"
+            , "SELECT CON.*,cus.name,cont.CONTACTSNAME from TB_CRM_CONTRACT con "
+            , "INNER JOIN TB_CRM_BUSINESS bus on BUS.BUSINESSID = CON.BUSINESSID"
+            , "inner join TB_CRM_CUSTOMER cus on cus.customerid= bus.customerid "
+            , "INNER JOIN TB_CRM_CONTACTS cont on cont.CONTACTSID=bus.CONTACTSID"
+            ," <where>"
+            ,"   <if test='searchText !=null'>"
+                    , " contractNumber like '%${searchText}%'"
+            ,"   </if>"
+            ," </where>"
+        	," limit #{beginIndex},#{endIndex}"
+			,"</script>"})	
     List<ContractVO> findPage(@Param("beginIndex")Integer beginIndex,@Param("endIndex")Integer endIndex,@Param("searchText") String searchText);
      
 }
