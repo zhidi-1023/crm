@@ -84,5 +84,12 @@ public class TbSystemUserService {
 		List<TbSystemUser> users = userMapper.selectByExample(example);
 		return users != null && users.size() > 0 ? users.get(0) : null;
 	}
+	/**
+	 * 查询所有的User
+	 * @return
+	 */
+	public List<TbSystemUser> findAll(){
+		return userMapper.selectByExample(new TbSystemUserExample());
+	}
 
 }
