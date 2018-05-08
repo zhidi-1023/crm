@@ -21,9 +21,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zhidisoft.crm.entity.TbCrmBusiness;
 import com.zhidisoft.crm.service.TbCrmBusinessService;
 import com.zhidisoft.crm.service.TbCrmBusinessStatusService;
-import com.zhidisoft.crm.service.TbCrmContactsService;
-import com.zhidisoft.crm.service.TbCrmCustomerService;
-import com.zhidisoft.crm.service.TbSystemUserService;
+import com.zhidisoft.crm.service.TbCrmBusinessContactsService;
+import com.zhidisoft.crm.service.TbCrmBusinessCustomerService;
+import com.zhidisoft.crm.service.TbBusinessSystemUserService;
 import com.zhidisoft.crm.vo.BusinessVO;
 
 @Controller
@@ -33,13 +33,13 @@ public class BusinessController {
 	@Autowired
 	TbCrmBusinessService businessService;
 	@Autowired
-	TbSystemUserService userservice;
+	TbBusinessSystemUserService userservice;
 	@Autowired
-	TbCrmCustomerService customerservice;
+	TbCrmBusinessCustomerService customerservice;
 	@Autowired
 	TbCrmBusinessStatusService businessstatusservice;
 	@Autowired
-	TbCrmContactsService contactsservice;
+	TbCrmBusinessContactsService contactsservice;
 	//分页
 	@GetMapping("listPage")
 	public ModelAndView listPage(@RequestParam(name = "pageNum", defaultValue = "1") Integer pageNum,
