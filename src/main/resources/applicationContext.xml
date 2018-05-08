@@ -15,12 +15,20 @@
 
 	<!-- 配置数据源 -->
 	<!-- https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_DruidDataSource%E5%8F%82%E8%80%83%E9%85%8D%E7%BD%AE -->
-	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+	<!-- <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		init-method="init" destroy-method="close">
 		<property name="driverClassName" value="oracle.jdbc.OracleDriver"></property>
 		<property name="url" value="jdbc:oracle:thin:@localhost:1521:ORCL" />
 		<property name="username" value="crm" />
 		<property name="password" value="password" />
+	</bean> -->
+
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="driverClassName" value="org.mariadb.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mariadb://rm-2zerb7597z75769rd3o.mysql.rds.aliyuncs.com:3306/crm" />
+		<property name="username" value="root" />
+		<property name="password" value="Admin123456" />
 	</bean>
 
 	<!-- sqlsession工厂 -->

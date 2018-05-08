@@ -54,7 +54,8 @@ public interface TbSystemUserMapper {
 			"#{status,jdbcType=DECIMAL}, #{updatetime,jdbcType=TIMESTAMP}, ",
 			"#{usernote,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, ",
 			"#{createby,jdbcType=VARCHAR}, #{updateby,jdbcType=VARCHAR}, ", "#{roleId,jdbcType=VARCHAR})" })
-	@SelectKey(statement = "select sys_guid() from dual", keyProperty = "id", before = true, resultType = String.class)
+	// @SelectKey(statement = "select sys_guid() from dual", keyProperty = "id", before = true, resultType = String.class)
+	@SelectKey(statement = "select REPLACE(UUID(),'-','')", keyProperty = "id", before = true, resultType = String.class)
 	int insert(TbSystemUser record);
 
 	/**
@@ -62,7 +63,8 @@ public interface TbSystemUserMapper {
 	 * @mbg.generated  Mon Apr 16 15:36:27 CST 2018
 	 */
 	@InsertProvider(type = TbSystemUserSqlProvider.class, method = "insertSelective")
-	@SelectKey(statement = "select sys_guid() from dual", keyProperty = "id", before = true, resultType = String.class)
+	// @SelectKey(statement = "select sys_guid() from dual", keyProperty = "id", before = true, resultType = String.class)
+	@SelectKey(statement = "select REPLACE(UUID(),'-','')", keyProperty = "id", before = true, resultType = String.class)
 	int insertSelective(TbSystemUser record);
 
 	/**

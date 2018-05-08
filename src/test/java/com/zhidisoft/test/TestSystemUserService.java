@@ -22,12 +22,18 @@ public class TestSystemUserService {
 	public void save() {
 		TbSystemUser user;
 		long begin = System.currentTimeMillis();
-		for (int i = 0; i < 10000; i++) {
-			user = new TbSystemUser();
-			user.setUsername("adminguo" + i);
-			user.setPassword(pEncoder.encode("admin"));
-			userService.save(user);
-		}
+		// for (int i = 0; i < 10000; i++) {
+		// 	user = new TbSystemUser();
+		// 	user.setUsername("adminguo" + i);
+		// 	user.setPassword(pEncoder.encode("admin"));
+		// 	userService.save(user);
+		// }
+
+		user = new TbSystemUser();
+		user.setUsername("admin");
+		user.setPassword(pEncoder.encode("admin"));
+		userService.save(user);
+		
 		long end = System.currentTimeMillis();
 		System.out.println(end - begin);
 	}
