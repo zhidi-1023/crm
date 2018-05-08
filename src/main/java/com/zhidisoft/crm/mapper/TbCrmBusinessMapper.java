@@ -67,7 +67,7 @@ public interface TbCrmBusinessMapper {
 			"#{isdeleted,jdbcType=DECIMAL}, #{deleteuserid,jdbcType=VARCHAR}, ",
 			"#{deletetime,jdbcType=TIMESTAMP}, #{contactsid,jdbcType=VARCHAR}, ",
 			"#{contractaddress,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})" })
-	@SelectKey(statement = "select sys_guid() from dual", keyProperty = "businessid", before = true, resultType = String.class)
+	@SelectKey(statement = "select REPLACE(UUID(),'-','')", keyProperty = "businessid", before = true, resultType = String.class)
 	int insert(TbCrmBusiness record);
 
 	/**
@@ -75,7 +75,7 @@ public interface TbCrmBusinessMapper {
 	 * @mbg.generated  Tue Apr 24 16:07:08 CST 2018
 	 */
 	@InsertProvider(type = TbCrmBusinessSqlProvider.class, method = "insertSelective")
-	@SelectKey(statement = "select sys_guid() from dual", keyProperty = "businessid", before = true, resultType = String.class)
+	@SelectKey(statement = "select REPLACE(UUID(),'-','')", keyProperty = "businessid", before = true, resultType = String.class)
 	int insertSelective(TbCrmBusiness record);
 
 	/**
@@ -193,7 +193,7 @@ public interface TbCrmBusinessMapper {
 	
 	/*手动分页*/
 	
-	@Select({ "<script>" 
+	/*@Select({ "<script>" 
 			+ "SELECT * "
 			, "FROM (SELECT ROWNUM AS rowno,r.* "
 			, " FROM("
@@ -211,6 +211,20 @@ public interface TbCrmBusinessMapper {
 			," <![CDATA[ where ROWNUM <= #{endIndex} ]]>"
 			, " ) table_alias"
 			, " WHERE table_alias.rowno > ${beginIndex}"
+			,"</script>" })*/
+	@Select({ "<script>" 
+			
+			,"select c.name as names,u.username,b.* from tb_crm_business b left join tb_system_user u on b.OWNERUSERID=u.id left join tb_crm_customer c on c.customerid=b.customerid"
+				
+			, " <where>"
+			,"   <if test='searchText !=null and searchText !=\"\"'>"
+					+ " b.name like '%${searchText}%'"
+			, "   </if>"
+			,"   <if test='where1 !=null and where1 == \"week\"'>"
+					+ " b.createtime between #{whereData1} and #{whereData2}"
+			,"   </if>"
+			, " </where>"
+			," limit #{beginIndex},#{endIndex}"
 			,"</script>" })
 	public List<TbCrmBusinessVO> findPage(@Param("beginIndex") Integer beginIndex,
 										  @Param("endIndex") Integer endIndex,
