@@ -45,6 +45,7 @@
 			<artifactId>oracle-jdbc</artifactId>
 			<version>1.0.0</version>
 		</dependency> -->
+		<!-- mariadb jar包 -->
 		<dependency>
 			<groupId>org.mariadb.jdbc</groupId>
 			<artifactId>mariadb-java-client</artifactId>

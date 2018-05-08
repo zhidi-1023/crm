@@ -74,7 +74,8 @@ public interface TbCrmProductMapper {
         "#{link,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, ",
         "#{updatetime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR})"
     })
-    @SelectKey(statement="select sys_guid() from dual", keyProperty="productid", before=true, resultType=String.class)
+//    @SelectKey(statement="select sys_guid() from dual", keyProperty="productid", before=true, resultType=String.class)
+    @SelectKey(statement="select REPLACE(UUID(),'-','')", keyProperty="productid", before=true, resultType=String.class)
     int insert(TbCrmProduct record);
 
     /**
@@ -84,7 +85,8 @@ public interface TbCrmProductMapper {
      * @mbg.generated Tue Apr 24 16:34:32 CST 2018
      */
     @InsertProvider(type=TbCrmProductSqlProvider.class, method="insertSelective")
-    @SelectKey(statement="select sys_guid() from dual", keyProperty="productid", before=true, resultType=String.class)
+//    @SelectKey(statement="select sys_guid() from dual", keyProperty="productid", before=true, resultType=String.class)
+    @SelectKey(statement="select REPLACE(UUID(),'-','')", keyProperty="productid", before=true, resultType=String.class)
     int insertSelective(TbCrmProduct record);
 
     /**
@@ -220,9 +222,6 @@ public interface TbCrmProductMapper {
 	 *  <![CDATA[ 注意 < 转义
 	 */
 	@Select({"<script>"
-			+ "SELECT * "
-			,"FROM (SELECT ROWNUM AS rowno,r.* "
-			, " FROM("
 			, "SELECT p.*, i.ismain FROM TB_CRM_PRODUCT p LEFT JOIN TB_CRM_PRODUCT_IMAGES i ON p.PRODUCTID=i.IMAGESID"
 			," <where>"
 			,"   <if test='searchText !=null'>"
@@ -232,11 +231,8 @@ public interface TbCrmProductMapper {
 					+ " p.developmenttime between #{whereData1} and #{whereData2}"
 			,"   </if>"
 			," </where>"
-			, " ) r"
-			, " <![CDATA[ where ROWNUM <= #{endIndex} ]]>"
-			," ) table_alias"
-			, " WHERE table_alias.rowno > ${beginIndex}",
-			"</script>"})
+			," limit #{beginIndex},#{endIndex}"
+			,"</script>"})
 	List<ProductVO> findPage(@Param("beginIndex")Integer beginIndex,
 								@Param("endIndex")Integer endIndex,
 								@Param("searchText") String searchText,

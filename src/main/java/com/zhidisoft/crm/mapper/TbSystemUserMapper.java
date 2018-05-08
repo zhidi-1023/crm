@@ -189,7 +189,6 @@ public interface TbSystemUserMapper {
 					+ " username like '%${searchText}%'"
 			,"   </if>"
 			," </where>"
-			
 			," limit #{beginIndex},#{endIndex}"
 			,"</script>"})	
     List<TbSystemUser> selectByPage(@Param("beginIndex")Integer beginIndex,@Param("endIndex")Integer endIndex,@Param("searchText")String searchText);
