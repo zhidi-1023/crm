@@ -3,20 +3,22 @@ package com.zhidisoft.crm.vo;
 import com.zhidisoft.crm.entity.TbCrmContract;
 
 public class ContractVO extends TbCrmContract{
-	private String name;
-	private String   contactsname;
-	public String getName() {
-		return name;
+	private String cusname;
+	private String   contName;
+	 
+	public String getCusname() {
+		return cusname;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setCusname(String cusname) {
+		this.cusname = cusname;
 	}
-	public String getContactsname() {
-		return contactsname;
+	public String getContName() {
+		return contName;
 	}
-	public void setContactsname(String contactsname) {
-		this.contactsname = contactsname;
+	public void setContName(String contName) {
+		this.contName = contName;
 	}
+ 
 	 
 	 
 	

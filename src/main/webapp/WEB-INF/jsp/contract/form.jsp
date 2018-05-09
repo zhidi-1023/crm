@@ -81,18 +81,18 @@
 						 <div class="am-u-sm-4 am-u-md-2 am-text-right">合同编号</div>
 						<div class="am-u-sm-8 am-u-md-4">
 							<input type="text" class="am-input-sm" name="contractnumber"
-								value="${contract.contractnumber }">
+								 >
 						</div>
 						
 						<div class="am-u-sm-4 am-u-md-2 am-text-right">签约时间</div>
 						<div class="am-u-sm-8 am-u-md-4">
 							<input type="date" class="easyui-datetimebox" name="duetime"
-								value="${contract.duetime }">
+								 >
 						</div>
 					 	 
 						<div class="am-u-sm-4 am-u-md-2 am-text-right">来源商机</div>
 						<div class="am-u-sm-8 am-u-md-4">
-							<select name="businessid">
+							<select name="businessid" class="businessid">
 							<%
 								for ( TbCrmBusiness business : businessList) {
 							%>
@@ -105,12 +105,13 @@
 						<div class="am-u-sm-4 am-u-md-2 am-text-right">联系人</div>
 						<div class="am-u-sm-8 am-u-md-4">
 							<input type="text" class="am-input-sm" name="rolename"
-								disabled="disabled"  >
+								disabled="disabled" value="${contractvo.contName}">
 						</div>
+						
 						<div class="am-u-sm-4 am-u-md-2 am-text-right">来源客户</div>
 						<div class="am-u-sm-8 am-u-md-4">
 							<input type="text" class="am-input-sm" name="rolename"
-								disabled="disabled" >
+								disabled="disabled"  value="${contractvo.cusname}">
 						</div>
 						<br>
 						<br />
@@ -121,7 +122,7 @@
 					 
 						<div class="am-u-sm-4 am-u-md-2 am-text-right">合同金额</div>
 						<div class="am-u-sm-8 am-u-md-4">
-							<input type="text" class="am-input-sm" name="price" value="${contract.price}">
+							<input type="text" class="am-input-sm" name="price"  >
 						</div>
 
 						<div class="am-u-sm-4 am-u-md-2 am-text-right">合同生效时间</div>
@@ -130,17 +131,17 @@
 						</div>
 					 <div class="am-u-sm-4 am-u-md-2 am-text-right">合同到期时间</div>
 						<div class="am-u-sm-8 am-u-md-4">
-							<input type="date" class="am-input-sm" name="enddate" value="${contract.enddate }">
+							<input type="date" class="am-input-sm" name="enddate"  >
 						</div> 
 						  <div class="am-u-sm-4 am-u-md-2 am-text-right">条件和条款</div>
 						<div class="am-u-sm-8 am-u-md-4">
 							<input type="text" class="am-input-sm" name="contractcontent"
-								value="${contract.contractcontent }">
+								 >
 						</div>
 						<div class="am-u-sm-4 am-u-md-2 am-text-right">合同描述</div>
 						<div class="am-u-sm-8 am-u-md-4">
 							<input type="text" class="am-input-sm" name="description"
-								value="${contract.description }">
+							 >
 						</div>  
 					</div>
 					<div class="am-margin">
@@ -155,6 +156,23 @@
 
 	<jsp:include page="../common/_js.jsp"></jsp:include>
   
-   
+   <script type="text/javascript">
+   $(document).ready(function(){
+	   $(".businessid").blur(function(){
+	    var id= $(".businessid").val();
+	     console.log(id);
+	    
+	     $.ajax({
+			 url:'<%=ctxPath%>/contract/form/'+id,
+			 type:'GET',
+			  success:function(){
+					 
+				  window.location.reload();
+			  }
+		 })  
+	 
+	   })
+	 });
+   </script>
 </body>
 </html>

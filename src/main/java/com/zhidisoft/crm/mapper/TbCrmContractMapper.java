@@ -298,10 +298,10 @@ public interface TbCrmContractMapper {
             "</script>"})
     List<ContractVO> findPage(@Param("beginIndex")Integer beginIndex,@Param("endIndex")Integer endIndex,@Param("searchText") String searchText);*/
     @Select({"<script>"
-            , "SELECT CON.*,cus.name,cont.CONTACTSNAME from TB_CRM_CONTRACT con "
-            , "INNER JOIN TB_CRM_BUSINESS bus on BUS.BUSINESSID = CON.BUSINESSID"
-            , "inner join TB_CRM_CUSTOMER cus on cus.customerid= bus.customerid "
-            , "INNER JOIN TB_CRM_CONTACTS cont on cont.CONTACTSID=bus.CONTACTSID"
+            , "SELECT CON.*,cus.name as cusName, cont.name as contName from TB_CRM_CONTRACT con  "
+            , " INNER JOIN TB_CRM_BUSINESS bus on BUS.BUSINESSID = CON.BUSINESSID "
+            , "inner join TB_CRM_CUSTOMER cus on cus.customerid= bus.customerid  "
+            , "INNER JOIN TB_CRM_CONTACTS cont on cont.CONTACTSID=bus.CONTACTSID" 
             ," <where>"
             ,"   <if test='searchText !=null'>"
                     , " contractNumber like '%${searchText}%'"
@@ -311,4 +311,14 @@ public interface TbCrmContractMapper {
 			,"</script>"})	
     List<ContractVO> findPage(@Param("beginIndex")Integer beginIndex,@Param("endIndex")Integer endIndex,@Param("searchText") String searchText);
      
+    @Select({"<script>"
+    	, "SELECT  cus.name as cusName, cont.name as contName from TB_CRM_BUSINESS bus" 
+          ,"inner join TB_CRM_CUSTOMER cus on cus.customerid= bus.customerid " 
+		,"INNER JOIN TB_CRM_CONTACTS cont on cont.CONTACTSID=bus.CONTACTSID" 
+       ," where  bus.BUSINESSID=#{businessid}"
+
+     
+    	,"</script>"})	
+    ContractVO form(@Param("businessid")String businessid);
+    
 }

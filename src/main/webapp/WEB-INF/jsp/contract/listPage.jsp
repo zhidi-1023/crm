@@ -152,8 +152,8 @@
 											data-id="<%=item.getContractid()%>" /></td>
 										<td><%=index%></td>
 										<td><%=item.getContractnumber()%></td>
-										<td><%=item.getName()%></td>
-										<td><%=item.getContactsname()%></td>
+										<td><%=item.getCusname()%></td>
+										<td><%=item.getContName()%></td>
 										<td><%=session.getAttribute("username")%></td>
 										<td><%=item.getDuetime() %></td>
 										<td><%=item.getPrice()%></td>
@@ -240,8 +240,7 @@
 	 $(function(){
 		 $(".contractDelete").click(function(){
 			 var id=$(this).attr("data-id")
-			 console.log(id);
-			 console.log("11111111");
+			 
 			 layer.confirm('您是否要删除？', {
 				  btn: ['确定','取消'] //按钮
 				}, function(){

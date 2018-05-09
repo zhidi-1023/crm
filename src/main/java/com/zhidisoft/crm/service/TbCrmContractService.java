@@ -79,6 +79,10 @@ public class TbCrmContractService {
 		}
 		
 	}
+	public  ContractVO form(String businessid) {
+		
+		return contractMapper.form(businessid);
+	}
 	 
 	
 }

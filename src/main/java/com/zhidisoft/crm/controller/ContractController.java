@@ -54,9 +54,19 @@ public class ContractController {
 			return new ModelAndView("contract/form", "errorMsg", result.getAllErrors().get(0).getDefaultMessage());
 		}
 		
- 		contract.setOwneruserid(session.getAttribute("userId").toString());
+ 		/*contract.setOwneruserid(session.getAttribute("userId").toString());*/
 		contractService.insert(contract);
 		return new ModelAndView("redirect:/contract/listPage");
+	}
+	@GetMapping("form/{id}")
+	public ModelAndView form(@PathVariable("id") String  businessid){
+		 
+		ContractVO contractvo= contractService.form(businessid);
+		System.out.println(contractvo.getContName());
+	      ModelAndView model = new ModelAndView();
+		 
+	return model.addObject("contractvo", contractvo);
+		
 	}
 
 	/**
