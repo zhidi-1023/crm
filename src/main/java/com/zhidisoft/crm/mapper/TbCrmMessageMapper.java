@@ -185,6 +185,7 @@ public interface TbCrmMessageMapper {
 				,"   <if test='searchText !=null and searchText!=\"\" '>"
 				+ " username like '%${searchText}%'"
 				, "   </if>"
+				, " <where>"
 				, " limit #{beginIndex},#{endIndex}"
 				})
 	 List<MessListVO> findPage(@Param("beginIndex") Integer beginIndex, @Param("endIndex") Integer endIndex,
